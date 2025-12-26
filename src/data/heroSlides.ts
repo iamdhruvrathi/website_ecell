@@ -3,28 +3,28 @@ export const heroSlides = [
   {
     id: 1,
     image:
-      "https://images.unsplash.com/photo-1556740749-887f6717d7e4?auto=format&fit=crop&w=1920&q=80",
+      "https://res.cloudinary.com/dsrudxfnx/image/upload/v1766735243/img3_pkwevy.jpg",
     title: "Empowering Student Entrepreneurs",
     subtitle: "Dream. Dare. Do.",
   },
   {
     id: 2,
     image:
-      "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1920&q=80",
+      "https://res.cloudinary.com/dsrudxfnx/image/upload/v1766735243/img1_ltd0fr.jpg",
     title: "Building Tomorrow's Innovators",
     subtitle: "From Ideas to Impact",
   },
   {
     id: 3,
     image:
-      "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1920&q=80",
+      "https://res.cloudinary.com/dsrudxfnx/image/upload/v1766735243/IMG-20250524-WA0067_brz0ik.jpg",
     title: "Where Entrepreneurship Thrives",
     subtitle: "Join the Startup Revolution",
   },
   {
     id: 4,
     image:
-      "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=1920&q=80",
+      "https://res.cloudinary.com/dsrudxfnx/image/upload/v1766735243/IMG_20250910_165736875_dtcion.jpg",
     title: "Learn. Network. Launch.",
     subtitle: "Your Startup Journey Starts Here",
   },

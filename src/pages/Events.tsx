@@ -1,161 +1,183 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
-import { Search, Calendar, MapPin, ExternalLink } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Search, Calendar, MapPin, ArrowUpRight } from "lucide-react";
 import { events as eventsData } from "../data";
 import EventCard from "../components/EventCard";
 import Modal from "../components/Modal";
 
+interface Event {
+  id: number;
+  title: string;
+  description: string;
+  date: string;
+  venue: string;
+  image: string;
+  type: string;
+  registrationLink?: string;
+  fullDescription?: string;
+}
+
 const Events = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [activeTab, setActiveTab] = useState<"upcoming" | "past">("upcoming");
-  const [selectedEvent, setSelectedEvent] = useState<any>(null);
+  const [activeTab, setActiveTab] = useState("upcoming");
+  const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
 
-  const filteredEvents = eventsData
-    .filter((event) => event.type === activeTab)
-    .filter(
-      (event) =>
-        event.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        event.description.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    });
-  };
+  const filteredEvents = eventsData.filter(
+    (e) =>
+      e.type === activeTab &&
+      e.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
-    <div className="min-h-screen bg-gray-50 pt-20 pb-16">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-12"
-        >
-          <h1 className="text-5xl font-display font-bold text-gray-900 mb-4">
-            Events
-          </h1>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Join us for workshops, competitions, talks, and networking
-            opportunities
-          </p>
-        </motion.div>
+    <div className="min-h-screen bg-black text-white pt-32 pb-16 selection:bg-[#39FF14] selection:text-black">
+      {/* --- SUBTLE DOT MATRIX BACKGROUND --- */}
+      <div
+        className="fixed inset-0 pointer-events-none opacity-[0.15]"
+        style={{
+          backgroundImage: `radial-gradient(circle, #333 1px, transparent 1px)`,
+          backgroundSize: "32px 32px",
+        }}
+      />
 
-        <div className="mb-8 space-y-4">
-          <div className="relative max-w-2xl mx-auto">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
-            <input
-              type="text"
-              placeholder="Search events..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-12 pr-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-            />
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
+        {/* --- HEADER: MASSIVE TYPOGRAPHY --- */}
+        <header className="mb-24">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="flex flex-col gap-4"
+          >
+            <div className="flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-[#39FF14] shadow-[0_0_8px_#39FF14]" />
+              <span className="text-[10px] uppercase tracking-[0.4em] text-gray-500 font-bold">
+                Live Portal
+              </span>
+            </div>
+            <h1 className="text-7xl md:text-9xl font-bold tracking-tighter leading-none">
+              Building <br />
+              <span className="text-gray-500">Bold Ideas.</span>
+            </h1>
+          </motion.div>
+        </header>
+
+        {/* --- MINIMAL FILTERS --- */}
+        <div className="flex flex-col md:flex-row justify-between items-end gap-8 mb-12 border-b border-white/10 pb-8">
+          <div className="flex gap-8">
+            {["upcoming", "past"].map((tab) => (
+              <button
+                key={tab}
+                onClick={() => setActiveTab(tab)}
+                className={`text-sm font-bold uppercase tracking-widest transition-all relative pb-2 ${
+                  activeTab === tab
+                    ? "text-white"
+                    : "text-gray-600 hover:text-gray-400"
+                }`}
+              >
+                {tab}
+                {activeTab === tab && (
+                  <motion.div
+                    layoutId="underline"
+                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-white"
+                  />
+                )}
+              </button>
+            ))}
           </div>
 
-          <div className="flex justify-center space-x-4">
-            <button
-              onClick={() => setActiveTab("upcoming")}
-              className={`px-6 py-3 rounded-lg font-semibold transition-colors ${
-                activeTab === "upcoming"
-                  ? "bg-primary text-white"
-                  : "bg-white text-gray-700 hover:bg-gray-100"
-              }`}
-            >
-              Upcoming Events
-            </button>
-            <button
-              onClick={() => setActiveTab("past")}
-              className={`px-6 py-3 rounded-lg font-semibold transition-colors ${
-                activeTab === "past"
-                  ? "bg-primary text-white"
-                  : "bg-white text-gray-700 hover:bg-gray-100"
-              }`}
-            >
-              Past Events
-            </button>
+          <div className="relative w-full md:w-80 group">
+            <Search className="absolute left-0 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-600 group-focus-within:text-[#39FF14] transition-colors" />
+            <input
+              type="text"
+              placeholder="Search initiatives"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full bg-transparent border-none pl-8 focus:ring-0 text-sm uppercase tracking-widest placeholder:text-gray-800"
+            />
           </div>
         </div>
 
-        {filteredEvents.length === 0 ? (
-          <div className="text-center py-12">
-            <p className="text-gray-600 text-lg">
-              No events found matching your search.
-            </p>
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredEvents.map((event, index) => (
-              <motion.div
+        {/* --- GRID --- */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeTab}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="grid grid-cols-1 md:grid-cols-2 gap-px bg-white/10" // The gap creates thin border lines
+          >
+            {filteredEvents.map((event) => (
+              <div
                 key={event.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
+                className="bg-black p-8 group cursor-pointer transition-colors hover:bg-white/5"
+                onClick={() => setSelectedEvent(event)}
               >
-                <EventCard
-                  event={event}
-                  onClick={() => setSelectedEvent(event)}
-                />
-              </motion.div>
+                <div className="flex justify-between items-start mb-12">
+                  <span className="text-[10px] font-mono text-gray-600">
+                    ID_{String(event.id).padStart(3, "0")}
+                  </span>
+                  <ArrowUpRight
+                    className="text-gray-800 group-hover:text-[#39FF14] transition-colors"
+                    size={20}
+                  />
+                </div>
+                <h3 className="text-3xl font-bold mb-4 tracking-tight">
+                  {event.title}
+                </h3>
+                <p className="text-gray-500 text-sm max-w-sm line-clamp-2 italic">
+                  {event.description}
+                </p>
+              </div>
             ))}
-          </div>
-        )}
+          </motion.div>
+        </AnimatePresence>
 
+        {/* --- MODAL: CLEAN & SPACIOUS --- */}
         <Modal isOpen={!!selectedEvent} onClose={() => setSelectedEvent(null)}>
           {selectedEvent && (
-            <div className="p-8">
-              <img
-                src={selectedEvent.image}
-                alt={selectedEvent.title}
-                className="w-full h-64 object-cover rounded-lg mb-6"
-              />
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">
-                {selectedEvent.title}
-              </h2>
-
-              <div className="flex items-center text-gray-600 mb-2">
-                <Calendar className="h-5 w-5 mr-2 text-primary" />
-                <span>{formatDate(selectedEvent.date)}</span>
+            <div className="bg-black text-white p-12 max-w-4xl mx-auto font-sans">
+              <div className="flex justify-between items-start mb-12">
+                <h2 className="text-5xl font-bold tracking-tighter">
+                  {selectedEvent.title}
+                </h2>
+                <div className="text-right">
+                  <p className="text-[10px] uppercase tracking-widest text-gray-500">
+                    Location
+                  </p>
+                  <p className="text-sm font-bold">{selectedEvent.venue}</p>
+                </div>
               </div>
 
-              <div className="flex items-center text-gray-600 mb-6">
-                <MapPin className="h-5 w-5 mr-2 text-primary" />
-                <span>{selectedEvent.venue}</span>
+              <div className="grid md:grid-cols-2 gap-16">
+                <div>
+                  <p className="text-gray-400 leading-relaxed text-lg">
+                    {selectedEvent.fullDescription || selectedEvent.description}
+                  </p>
+                </div>
+                <div className="flex flex-col justify-between">
+                  <div className="space-y-4">
+                    <div className="flex items-center gap-3">
+                      <Calendar size={16} className="text-[#39FF14]" />
+                      <span className="text-sm uppercase font-bold tracking-widest">
+                        {selectedEvent.date}
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <MapPin size={16} className="text-[#39FF14]" />
+                      <span className="text-sm uppercase font-bold tracking-widest">
+                        {selectedEvent.venue}
+                      </span>
+                    </div>
+                  </div>
+
+                  {selectedEvent.type === "upcoming" && (
+                    <a
+                      href={selectedEvent.registrationLink}
+                      className="mt-12 block w-full bg-white text-black py-4 text-center font-bold uppercase tracking-widest hover:bg-[#39FF14] transition-colors"
+                    >
+                      Apply to participate
+                    </a>
+                  )}
+                </div>
               </div>
-
-              <div className="mb-2">
-                <span
-                  className={`inline-block px-3 py-1 rounded-full text-sm font-semibold ${
-                    selectedEvent.type === "upcoming"
-                      ? "bg-green-100 text-green-800"
-                      : "bg-gray-100 text-gray-800"
-                  }`}
-                >
-                  {selectedEvent.type === "upcoming"
-                    ? "Upcoming Event"
-                    : "Past Event"}
-                </span>
-              </div>
-
-              <p className="text-gray-700 mb-6">
-                {selectedEvent.fullDescription || selectedEvent.description}
-              </p>
-
-              {selectedEvent.type === "upcoming" &&
-                selectedEvent.registrationLink && (
-                  <a
-                    href={selectedEvent.registrationLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center bg-primary text-white px-6 py-3 rounded-lg hover:bg-primary-dark transition-colors font-semibold"
-                  >
-                    Register Now
-                    <ExternalLink className="h-5 w-5 ml-2" />
-                  </a>
-                )}
             </div>
           )}
         </Modal>

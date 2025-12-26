@@ -1,33 +1,20 @@
 export const partners = [
   {
     id: 1,
-    name: "Microsoft for Startups",
-    logo: "https://res.cloudinary.com/demo/image/upload/microsoft-logo.png",
-    website: "https://www.microsoft.com",
+    name: "Quality Technologies",
+    logo: "https://res.cloudinary.com/dsrudxfnx/image/upload/v1766735555/kaaj-ventures-logo_k59guh.png",
+    website: "https://www.qualitytechnologies.com",
   },
   {
     id: 2,
-    name: "Google for Startups",
-    logo: "https://res.cloudinary.com/demo/image/upload/google-logo.png",
-    website: "https://www.google.com",
+    name: "StockGro",
+    logo: "https://res.cloudinary.com/dsrudxfnx/image/upload/v1766735555/30ffb6bb7dac4bdfb05dd1796b71a2ea_v3evyj_jzqrqd.webp",
+    website: "https://www.stockgro.com",
   },
   {
     id: 3,
-    name: "Amazon Web Services",
-    logo: "https://res.cloudinary.com/demo/image/upload/aws-logo.png",
-    website: "https://aws.amazon.com",
-  },
-  {
-    id: 4,
-    name: "GitHub Education",
-    logo: "https://res.cloudinary.com/demo/image/upload/github-logo.png",
-    website: "https://education.github.com",
-  },
-  {
-    id: 5,
-    name: "Karnataka Startup Cell",
-    logo: "https://res.cloudinary.com/demo/image/upload/karnataka-startup.png",
-    website: "https://karnatakadigitaleconomy.com",
-  },
-  
+    name: "Kaaj Ventures",
+    logo: "https://res.cloudinary.com/dsrudxfnx/image/upload/v1766735555/Hi-Res-Logo-Qualitas-Trans.-BG_2x-transper-1024x264-4_oftxyc.webp",
+    website: "https://www.kaajventures.com",
+  },  
 ];

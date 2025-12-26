@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { X, ChevronLeft, ChevronRight } from "lucide-react";
+import { motion, AnimatePresence, Variants } from "framer-motion";
+import { X, ChevronLeft, ChevronRight, Maximize2, Camera } from "lucide-react";
 import { galleryImages } from "../data";
 
 const Gallery = () => {
@@ -17,159 +17,186 @@ const Gallery = () => {
       ? galleryImages
       : galleryImages.filter((img) => img.event === selectedEvent);
 
-  const openLightbox = (index: number) => {
-    const imageIndex = galleryImages.findIndex(
-      (img) => img.id === filteredImages[index].id
-    );
-    setLightboxImage(imageIndex);
+  const openLightbox = (id: number) => {
+    const index = galleryImages.findIndex((img) => img.id === id);
+    setLightboxImage(index);
   };
 
-  const closeLightbox = () => setLightboxImage(null);
-
-  const nextImage = () => {
-    if (lightboxImage !== null) {
-      setLightboxImage((lightboxImage + 1) % galleryImages.length);
-    }
-  };
-
-  const prevImage = () => {
-    if (lightboxImage !== null) {
-      setLightboxImage(
-        (lightboxImage - 1 + galleryImages.length) % galleryImages.length
-      );
-    }
+  // Variants for the smooth text reveal on hover
+  const captionVariants: Variants = {
+    rest: { y: 20, opacity: 0 },
+    hover: {
+      y: 0,
+      opacity: 1,
+      transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] },
+    },
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 pt-20 pb-16">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-12"
-        >
-          <h1 className="text-5xl font-display font-bold text-gray-900 mb-4">
-            Gallery
-          </h1>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Capturing moments of innovation, learning, and celebration
-          </p>
-        </motion.div>
+    <div className="min-h-screen bg-black text-white pt-32 pb-24 selection:bg-[#39FF14] selection:text-black font-sans">
+      {/* --- SUBTLE DOT BACKGROUND --- */}
+      <div
+        className="fixed inset-0 pointer-events-none opacity-[0.12]"
+        style={{
+          backgroundImage: `radial-gradient(circle, #444 1px, transparent 1px)`,
+          backgroundSize: "32px 32px",
+        }}
+      />
 
-        <div className="mb-8">
-          <div className="flex flex-wrap justify-center gap-2">
+      <div className="max-w-[1600px] mx-auto px-6 relative z-10">
+        {/* --- HEADER: BOLD & MINIMAL --- */}
+        <header className="mb-20 flex flex-col md:flex-row md:items-end justify-between gap-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+          >
+            <div className="flex items-center gap-2 mb-4">
+              <Camera size={14} className="text-[#39FF14]" />
+              <span className="text-[10px] uppercase tracking-[0.4em] text-gray-500 font-bold">
+                Archives
+              </span>
+            </div>
+            <h1 className="text-7xl md:text-9xl font-bold tracking-tighter leading-none">
+              Visual <br />
+              <span className="text-gray-600">Ecosystem.</span>
+            </h1>
+          </motion.div>
+
+          {/* Filter Tabs */}
+          <div className="flex flex-wrap gap-2 border-b border-white/5 pb-2">
             {events.map((event) => (
               <button
                 key={event}
                 onClick={() => setSelectedEvent(event)}
-                className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                className={`px-4 py-2 text-[10px] font-bold uppercase tracking-[0.2em] transition-all duration-300 relative ${
                   selectedEvent === event
-                    ? "bg-primary text-white"
-                    : "bg-white text-gray-700 hover:bg-gray-100"
+                    ? "text-[#39FF14]"
+                    : "text-gray-500 hover:text-white"
                 }`}
               >
                 {event}
+                {selectedEvent === event && (
+                  <motion.div
+                    layoutId="activeTab"
+                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#39FF14]"
+                  />
+                )}
               </button>
             ))}
           </div>
-        </div>
+        </header>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {filteredImages.map((image, index) => (
-            <motion.div
-              key={image.id}
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: index * 0.05 }}
-              whileHover={{ scale: 1.05 }}
-              className="relative aspect-square overflow-hidden rounded-lg cursor-pointer group"
-              onClick={() => openLightbox(index)}
-            >
-              <img
-                src={image.url}
-                alt={image.caption}
-                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                loading="lazy"
-              />
-              <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-                <div className="text-white">
-                  <p className="font-semibold text-sm">{image.event}</p>
-                  <p className="text-xs">{image.caption}</p>
+        {/* --- MASONRY GRID --- */}
+        <motion.div
+          layout
+          className="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-4 space-y-4"
+        >
+          <AnimatePresence>
+            {filteredImages.map((image) => (
+              <motion.div
+                key={image.id}
+                layout
+                initial="rest"
+                whileHover="hover"
+                animate="rest"
+                exit={{ opacity: 0, scale: 0.9 }}
+                className="relative break-inside-avoid group cursor-pointer overflow-hidden bg-white/5 border border-white/5"
+                onClick={() => openLightbox(image.id)}
+              >
+                <img
+                  src={image.url}
+                  alt={image.caption}
+                  className="w-full h-auto grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-out"
+                />
+
+                {/* Information Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20 flex flex-col justify-end p-8">
+                  <div className="overflow-hidden">
+                    <motion.p
+                      variants={captionVariants}
+                      className="text-[10px] font-bold text-[#39FF14] uppercase tracking-widest mb-2"
+                    >
+                      {image.event}
+                    </motion.p>
+                    <motion.p
+                      variants={captionVariants}
+                      className="text-lg font-bold text-white tracking-tight leading-tight"
+                    >
+                      {image.caption}
+                    </motion.p>
+                  </div>
+                  <Maximize2
+                    className="absolute top-8 right-8 text-[#39FF14] opacity-0 group-hover:opacity-100 transition-all"
+                    size={18}
+                  />
                 </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </motion.div>
 
-        {filteredImages.length === 0 && (
-          <div className="text-center py-12">
-            <p className="text-gray-600 text-lg">
-              No images found for this event.
-            </p>
-          </div>
-        )}
-
+        {/* --- FULL SCREEN LIGHTBOX --- */}
         <AnimatePresence>
           {lightboxImage !== null && (
-            <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-[100] flex items-center justify-center bg-black/98 backdrop-blur-2xl p-6"
+            >
+              <button
+                onClick={() => setLightboxImage(null)}
+                className="absolute top-10 right-10 text-white/40 hover:text-[#39FF14] transition-colors z-[110]"
+              >
+                <X size={32} />
+              </button>
+
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setLightboxImage(
+                    (prev) =>
+                      (prev! - 1 + galleryImages.length) % galleryImages.length
+                  );
+                }}
+                className="absolute left-6 text-white/10 hover:text-white transition-colors"
+              >
+                <ChevronLeft size={60} strokeWidth={1} />
+              </button>
+
               <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className="fixed inset-0 bg-black/95 z-50"
-                onClick={closeLightbox}
-              />
-              <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-                <button
-                  onClick={closeLightbox}
-                  className="absolute top-4 right-4 bg-white/10 hover:bg-white/20 p-2 rounded-full transition-colors"
-                >
-                  <X className="h-6 w-6 text-white" />
-                </button>
+                initial={{ scale: 0.9, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.9, opacity: 0 }}
+                className="relative flex flex-col items-center justify-center max-w-6xl w-full h-full"
+              >
+                <img
+                  src={galleryImages[lightboxImage].url}
+                  className="max-w-full max-h-[70vh] object-contain shadow-[0_0_50px_rgba(0,0,0,0.5)] border border-white/5"
+                  alt="Full view"
+                />
+                <div className="mt-12 text-center">
+                  <span className="text-[10px] font-bold text-[#39FF14] uppercase tracking-[0.5em] mb-4 block animate-pulse">
+                    {galleryImages[lightboxImage].event}
+                  </span>
+                  <h2 className="text-3xl font-bold tracking-tighter text-white">
+                    {galleryImages[lightboxImage].caption}
+                  </h2>
+                </div>
+              </motion.div>
 
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    prevImage();
-                  }}
-                  className="absolute left-4 bg-white/10 hover:bg-white/20 p-2 rounded-full transition-colors"
-                >
-                  <ChevronLeft className="h-6 w-6 text-white" />
-                </button>
-
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                  className="max-w-5xl max-h-[90vh]"
-                  onClick={(e) => e.stopPropagation()}
-                >
-                  <img
-                    src={galleryImages[lightboxImage].url}
-                    alt={galleryImages[lightboxImage].caption}
-                    className="max-w-full max-h-[80vh] object-contain rounded-lg"
-                  />
-                  <div className="text-white text-center mt-4">
-                    <p className="font-semibold">
-                      {galleryImages[lightboxImage].event}
-                    </p>
-                    <p className="text-sm text-gray-300">
-                      {galleryImages[lightboxImage].caption}
-                    </p>
-                  </div>
-                </motion.div>
-
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    nextImage();
-                  }}
-                  className="absolute right-4 bg-white/10 hover:bg-white/20 p-2 rounded-full transition-colors"
-                >
-                  <ChevronRight className="h-6 w-6 text-white" />
-                </button>
-              </div>
-            </>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setLightboxImage(
+                    (prev) => (prev! + 1) % galleryImages.length
+                  );
+                }}
+                className="absolute right-6 text-white/10 hover:text-white transition-colors"
+              >
+                <ChevronRight size={60} strokeWidth={1} />
+              </button>
+            </motion.div>
           )}
         </AnimatePresence>
       </div>
