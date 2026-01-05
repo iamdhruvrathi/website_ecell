@@ -7,7 +7,6 @@ export * from './heroSlides';
 export * from './initiatives';
 export * from './merchandise';
 export * from './partners';
-export * from './resources';
 export * from './startups';
 export * from './stats';
 export * from './team';

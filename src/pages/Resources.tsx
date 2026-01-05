@@ -1,224 +1,193 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
-import { Search, Download, Calendar, User, Tag } from "lucide-react";
-import { resources, blogPosts } from "../data";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  Search,
+  Calendar,
+  User,
+  ArrowRight,
+  X,
+  Maximize2,
+  Layers,
+} from "lucide-react";
+import { blogPosts } from "../data";
 
-const Resources = () => {
-  const [activeTab, setActiveTab] = useState<"resources" | "blog">("resources");
-  const [selectedCategory, setSelectedCategory] = useState<string>("All");
+const Blog = () => {
   const [searchTerm, setSearchTerm] = useState("");
-
-  const resourceCategories = [
-    "All",
-    ...Array.from(new Set(resources.map((r) => r.category))),
-  ];
-
-  const filteredResources =
-    selectedCategory === "All"
-      ? resources.filter(
-          (r) =>
-            r.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            r.description.toLowerCase().includes(searchTerm.toLowerCase())
-        )
-      : resources
-          .filter((r) => r.category === selectedCategory)
-          .filter(
-            (r) =>
-              r.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-              r.description.toLowerCase().includes(searchTerm.toLowerCase())
-          );
+  const [selectedPost, setSelectedPost] = useState<any | null>(null);
 
   const filteredBlogs = blogPosts.filter(
     (post) =>
       post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
       post.excerpt.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      post.tags.some((tag) =>
+      post.tags?.some((tag: string) =>
         tag.toLowerCase().includes(searchTerm.toLowerCase())
       )
   );
 
   return (
-    <div className="min-h-screen bg-gray-50 pt-20 pb-16">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-12"
-        >
-          <h1 className="text-5xl font-display font-bold text-gray-900 mb-4">
-            Resources & Blog
-          </h1>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Tools, guides, and insights to help you build your startup
-          </p>
-        </motion.div>
+    <div className="min-h-screen bg-black text-white pt-32 pb-16 font-sans selection:bg-[#39FF14] selection:text-black">
+      {/* Background Dot Matrix */}
+      <div
+        className="fixed inset-0 pointer-events-none opacity-[0.12]"
+        style={{
+          backgroundImage: `radial-gradient(circle, #444 1px, transparent 1px)`,
+          backgroundSize: "32px 32px",
+        }}
+      />
 
-        <div className="mb-8 space-y-4">
-          <div className="flex justify-center space-x-4">
-            <button
-              onClick={() => setActiveTab("resources")}
-              className={`px-8 py-3 rounded-lg font-semibold transition-colors ${
-                activeTab === "resources"
-                  ? "bg-primary text-white"
-                  : "bg-white text-gray-700 hover:bg-gray-100"
-              }`}
-            >
-              Resources
-            </button>
-            <button
-              onClick={() => setActiveTab("blog")}
-              className={`px-8 py-3 rounded-lg font-semibold transition-colors ${
-                activeTab === "blog"
-                  ? "bg-primary text-white"
-                  : "bg-white text-gray-700 hover:bg-gray-100"
-              }`}
-            >
-              Blog
-            </button>
-          </div>
-
-          <div className="relative max-w-2xl mx-auto">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
-            <input
-              type="text"
-              placeholder={`Search ${activeTab}...`}
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-12 pr-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-            />
-          </div>
-
-          {activeTab === "resources" && (
-            <div className="flex flex-wrap justify-center gap-2">
-              {resourceCategories.map((category) => (
-                <button
-                  key={category}
-                  onClick={() => setSelectedCategory(category)}
-                  className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-                    selectedCategory === category
-                      ? "bg-primary text-white"
-                      : "bg-white text-gray-700 hover:bg-gray-100"
-                  }`}
-                >
-                  {category}
-                </button>
-              ))}
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
+        {/* --- HEADER --- */}
+        <header className="mb-20">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+          >
+            <div className="flex items-center gap-2 mb-4">
+              <Layers size={14} className="text-[#39FF14]" />
+              <span className="text-[10px] uppercase tracking-[0.5em] text-gray-500 font-bold">
+                Insight Archive
+              </span>
             </div>
-          )}
-        </div>
+            <h1 className="text-7xl md:text-9xl font-bold tracking-tighter leading-none mb-12">
+              The <br />
+              <span className="text-gray-600 italic">Journal.</span>
+            </h1>
 
-        {activeTab === "resources" ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredResources.map((resource, index) => (
-              <motion.div
-                key={resource.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-                whileHover={{ y: -8 }}
-                className="bg-white rounded-lg shadow-lg p-6 group"
-              >
-                <div className="flex items-center justify-between mb-4">
-                  <span className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-semibold">
-                    {resource.category}
-                  </span>
-                  <span className="text-xs text-gray-600 bg-gray-100 px-2 py-1 rounded">
-                    {resource.type}
-                  </span>
-                </div>
+            <div className="relative max-w-xl group">
+              <Search className="absolute left-0 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-600 group-focus-within:text-[#39FF14] transition-colors" />
+              <input
+                type="text"
+                placeholder="Search perspectives..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full bg-transparent border-b border-white/10 py-4 pl-8 focus:outline-none focus:border-[#39FF14] transition-all text-sm uppercase tracking-widest placeholder:text-gray-800"
+              />
+            </div>
+          </motion.div>
+        </header>
 
-                <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-primary transition-colors">
-                  {resource.title}
-                </h3>
-                <p className="text-gray-600 mb-4 text-sm">
-                  {resource.description}
-                </p>
-
-                <a
-                  href={resource.link}
-                  className="inline-flex items-center text-primary font-semibold hover:underline"
-                >
-                  <Download className="h-4 w-4 mr-2" />
-                  Download
-                </a>
-              </motion.div>
-            ))}
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {filteredBlogs.map((post, index) => (
-              <motion.article
-                key={post.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-                whileHover={{ y: -8 }}
-                className="bg-white rounded-lg shadow-lg overflow-hidden group cursor-pointer"
-              >
-                <div className="h-56 overflow-hidden">
+        {/* --- BLOG GRID (MASONRY STYLE) --- */}
+        <div className="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6">
+          {filteredBlogs.map((post, index) => (
+            <motion.article
+              key={post.id}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.05 }}
+              onClick={() => setSelectedPost(post)}
+              className="break-inside-avoid bg-white/[0.02] border border-white/5 group cursor-pointer hover:bg-white/[0.04] transition-all duration-500"
+            >
+              {/* IMAGE HANDLING (Conditional) */}
+              {post.image && (
+                <div className="relative overflow-hidden aspect-video">
                   <img
                     src={post.image}
                     alt={post.title}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
                   />
+                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <Maximize2 size={24} className="text-[#39FF14]" />
+                  </div>
+                </div>
+              )}
+
+              <div className="p-8">
+                <div className="flex items-center gap-4 text-[9px] uppercase tracking-[0.2em] text-gray-500 mb-4">
+                  <span className="flex items-center gap-1">
+                    <Calendar size={10} /> {post.date}
+                  </span>
+                  <span className="flex items-center gap-1">
+                    <User size={10} /> {post.author}
+                  </span>
                 </div>
 
-                <div className="p-6">
-                  <div className="flex items-center text-sm text-gray-600 mb-3 space-x-4">
-                    <div className="flex items-center">
-                      <User className="h-4 w-4 mr-1" />
-                      <span>{post.author}</span>
-                    </div>
-                    <div className="flex items-center">
-                      <Calendar className="h-4 w-4 mr-1" />
-                      <span>
-                        {new Date(post.date).toLocaleDateString("en-US", {
-                          year: "numeric",
-                          month: "short",
-                          day: "numeric",
-                        })}
-                      </span>
-                    </div>
+                <h2 className="text-2xl font-bold tracking-tight mb-4 group-hover:text-[#39FF14] transition-colors">
+                  {post.title}
+                </h2>
+
+                {post.excerpt && (
+                  <p className="text-gray-500 text-sm leading-relaxed mb-6 font-light">
+                    {post.excerpt}
+                  </p>
+                )}
+
+                <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest group-hover:gap-4 transition-all">
+                  Read Entry <ArrowRight size={14} className="text-[#39FF14]" />
+                </div>
+              </div>
+            </motion.article>
+          ))}
+        </div>
+
+        {/* --- DETAIL MODAL --- */}
+        <AnimatePresence>
+          {selectedPost && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 backdrop-blur-2xl p-4 md:p-12 overflow-y-auto"
+            >
+              <motion.div
+                initial={{ scale: 0.9, y: 20 }}
+                animate={{ scale: 1, y: 0 }}
+                exit={{ scale: 0.9, y: 20 }}
+                className="bg-black border border-white/10 max-w-5xl w-full p-8 md:p-16 relative"
+              >
+                <button
+                  onClick={() => setSelectedPost(null)}
+                  className="absolute top-8 right-8 text-white/40 hover:text-[#39FF14] transition-colors"
+                >
+                  <X size={32} />
+                </button>
+
+                <div className="max-w-3xl mx-auto">
+                  <div className="flex items-center gap-4 text-[10px] uppercase tracking-[0.4em] text-[#39FF14] mb-6">
+                    <span>{selectedPost.date}</span>
+                    <span className="w-1 h-1 rounded-full bg-white/20" />
+                    <span>{selectedPost.author}</span>
                   </div>
 
-                  <h2 className="text-2xl font-bold text-gray-900 mb-3 group-hover:text-primary transition-colors">
-                    {post.title}
+                  <h2 className="text-4xl md:text-6xl font-bold tracking-tighter mb-12">
+                    {selectedPost.title}
                   </h2>
 
-                  <p className="text-gray-600 mb-4">{post.excerpt}</p>
+                  {selectedPost.image && (
+                    <img
+                      src={selectedPost.image}
+                      className="w-full h-auto mb-12 border border-white/5"
+                      alt=""
+                    />
+                  )}
 
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {post.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="flex items-center text-xs bg-secondary/20 text-secondary-dark px-2 py-1 rounded"
-                      >
-                        <Tag className="h-3 w-3 mr-1" />
-                        {tag}
-                      </span>
-                    ))}
+                  {/* GALLERY HANDLING (If post has multiple images) */}
+                  {selectedPost.gallery && (
+                    <div className="grid grid-cols-2 gap-4 mb-12">
+                      {selectedPost.gallery.map((img: string, i: number) => (
+                        <img
+                          key={i}
+                          src={img}
+                          className="w-full aspect-square object-cover border border-white/5"
+                          alt=""
+                        />
+                      ))}
+                    </div>
+                  )}
+
+                  <div className="prose prose-invert max-w-none">
+                    <p className="text-gray-400 text-lg leading-relaxed font-light whitespace-pre-line">
+                      {selectedPost.content || selectedPost.excerpt}
+                    </p>
                   </div>
-
-                  <button className="text-primary font-semibold hover:underline">
-                    Read More →
-                  </button>
                 </div>
-              </motion.article>
-            ))}
-          </div>
-        )}
-
-        {((activeTab === "resources" && filteredResources.length === 0) ||
-          (activeTab === "blog" && filteredBlogs.length === 0)) && (
-          <div className="text-center py-12">
-            <p className="text-gray-600 text-lg">
-              No {activeTab} found matching your search.
-            </p>
-          </div>
-        )}
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );
 };
 
-export default Resources;
+export default Blog;

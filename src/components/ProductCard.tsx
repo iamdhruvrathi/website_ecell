@@ -1,5 +1,5 @@
-import { motion } from 'framer-motion';
-import { ShoppingCart } from 'lucide-react';
+import { motion } from "framer-motion";
+import { ShoppingCart, ArrowUpRight } from "lucide-react";
 
 interface ProductCardProps {
   product: {
@@ -16,37 +16,61 @@ interface ProductCardProps {
 const ProductCard = ({ product }: ProductCardProps) => {
   return (
     <motion.div
-      whileHover={{ y: -8 }}
-      className="bg-white rounded-lg shadow-lg overflow-hidden group"
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      whileHover={{ y: -5 }}
+      className="group relative flex flex-col bg-white/[0.02] border border-white/5 rounded-2xl overflow-hidden transition-all duration-500 hover:border-[#39FF14]/30"
     >
-      <div className="relative h-64 overflow-hidden">
+      {/* --- IMAGE SECTION --- */}
+      <div className="relative aspect-[4/5] overflow-hidden bg-[#0A0A0A]">
         <img
           src={product.image}
           alt={product.productName}
-          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+          className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-in-out"
         />
-        <div className="absolute top-4 right-4">
-          <span className="px-3 py-1 rounded-full text-xs font-semibold bg-primary text-white">
+
+        {/* Category Label - Technical Style */}
+        <div className="absolute top-4 left-4">
+          <span className="px-3 py-1 border border-white/10 bg-black/60 backdrop-blur-md text-[9px] uppercase tracking-[0.2em] text-[#39FF14] font-bold">
             {product.category}
           </span>
         </div>
-      </div>
 
-      <div className="p-6">
-        <h3 className="text-xl font-bold text-gray-900 mb-2">{product.productName}</h3>
-        <p className="text-gray-600 mb-4 text-sm">{product.description}</p>
-
-        <div className="flex items-center justify-between">
-          <span className="text-2xl font-bold text-primary">{product.price}</span>
+        {/* Hover Overlay Button */}
+        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
           <a
             href={product.orderLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-primary text-white px-4 py-2 rounded-md hover:bg-primary-dark transition-colors flex items-center space-x-2"
+            className="bg-[#39FF14] text-black px-6 py-2 rounded-full text-[10px] font-bold uppercase tracking-widest flex items-center gap-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500"
           >
-            <ShoppingCart className="h-4 w-4" />
-            <span>Order Now</span>
+            Initiate_Order <ArrowUpRight size={14} />
           </a>
+        </div>
+      </div>
+
+      {/* --- INFO SECTION --- */}
+      <div className="p-6 flex flex-col flex-1">
+        <div className="flex justify-between items-start mb-3">
+          <h3 className="text-lg font-bold tracking-tighter text-white group-hover:text-[#39FF14] transition-colors">
+            {product.productName}
+          </h3>
+          <span className="text-sm font-mono text-[#39FF14] font-bold">
+            {product.price}
+          </span>
+        </div>
+
+        <p className="text-xs text-gray-500 font-light leading-relaxed mb-6 line-clamp-2">
+          {product.description}
+        </p>
+
+        {/* Bottom Metadata - Optional Technical Feel */}
+        <div className="mt-auto pt-4 border-t border-white/5 flex items-center justify-between opacity-40 group-hover:opacity-100 transition-opacity">
+          <span className="text-[8px] uppercase tracking-widest text-gray-400">
+            Official_Gear_2026
+          </span>
+          <ShoppingCart size={12} className="text-gray-400" />
         </div>
       </div>
     </motion.div>
