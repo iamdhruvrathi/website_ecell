@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Rocket, Terminal } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import ecellLogo from "../assets/images/ecell_logo.png";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -23,22 +24,21 @@ const Navbar = () => {
     <nav className="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-xl border-b border-white/5 font-mono selection:bg-[#39FF14] selection:text-black">
       <div className="max-w-7xl mx-auto px-6 sm:px-8">
         <div className="flex justify-between items-center h-20">
-          {/* --- LOGO SECTION: CLEAN & MONOCHROME --- */}
+          {/* Logo Section */}
           <Link to="/" className="flex items-center space-x-3 group">
             <div className="p-2 border border-white/10 group-hover:border-[#39FF14] transition-all duration-500">
-              <Rocket className="h-5 w-5 text-white group-hover:text-[#39FF14] transition-colors" />
+              <img
+                src={ecellLogo}
+                alt="Logo"
+                className="h-10 w-10 object-contain group-hover:scale-110 transition-transform"
+              />
             </div>
-            <div className="flex flex-col">
-              <span className="text-xl font-bold tracking-tighter text-white uppercase italic leading-none">
-                E-Cell <span className="text-[#39FF14]">UVCE</span>
-              </span>
-              <span className="text-[9px] text-gray-600 tracking-[0.4em] uppercase mt-1">
-                Protocol_v2.5
-              </span>
-            </div>
+            <span className="text-xl font-bold tracking-tighter text-white uppercase italic leading-none">
+              E-Cell <span className="text-[#39FF14]">UVCE</span>
+            </span>
           </Link>
 
-          {/* --- DESKTOP NAV: TYPOGRAPHY FOCUSED --- */}
+          {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-2">
             {navLinks.map((link) => (
               <Link
@@ -56,7 +56,6 @@ const Navbar = () => {
                   {link.label}
                 </span>
 
-                {/* Minimalist Active Indicator: Pulsing Dot underneath */}
                 {isActive(link.path) && (
                   <motion.div
                     layoutId="nav-dot"
@@ -66,13 +65,9 @@ const Navbar = () => {
                 )}
               </Link>
             ))}
-
-            <div className="ml-6 pl-6 border-l border-white/10 flex items-center">
-              <Terminal className="h-4 w-4 text-gray-700 hover:text-[#39FF14] transition-colors cursor-pointer" />
-            </div>
           </div>
 
-          {/* --- MOBILE TOGGLE --- */}
+          {/* Mobile Toggle */}
           <button
             className="md:hidden p-2 text-white hover:text-[#39FF14] transition-colors"
             onClick={() => setIsOpen(!isOpen)}
@@ -82,7 +77,7 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* --- MOBILE NAV: CLEAN SLIDE-OUT --- */}
+      {/* Mobile Menu */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -109,14 +104,6 @@ const Navbar = () => {
                   )}
                 </Link>
               ))}
-            </div>
-
-            <div className="mt-12 pt-8 border-t border-white/5 flex items-center justify-between text-[9px] text-gray-600 font-mono tracking-widest uppercase">
-              <span>Status: Operational</span>
-              <div className="flex items-center gap-2">
-                <div className="w-1 h-1 bg-[#39FF14] rounded-full animate-pulse" />
-                <span className="text-[#39FF14]">All Nodes Online</span>
-              </div>
             </div>
           </motion.div>
         )}

@@ -1,10 +1,10 @@
-export const partners = [
-  {
+[
+    {
         "id": 1,
         "name": "Quality Technologies",
         "logo": "https://res.cloudinary.com/dsrudxfnx/image/upload/v1766735555/kaaj-ventures-logo_k59guh.png",
         "website": "https://www.qualitytechnologies.com"
-    }, 
+    },
     {
         "id": 2,
         "name": "StockGro",
@@ -28,5 +28,5 @@ export const partners = [
         "name": "Finshots",
         "logo": "https://play-lh.googleusercontent.com/pxXlg-sZyFhB-VgPeTIA4YZZ9S6_KmOGPvUdC_-szgQgbz-0wbGo9aqrXi4whjcIzg",
         "website": "https://finshots.in/"   
-    }  
-];
+    }
+]

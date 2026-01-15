@@ -3,6 +3,26 @@ export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
+      animation: {
+        // Slowed down for better visibility of larger colorful logos
+        marquee: 'marquee 40s linear infinite',
+        'marquee-reverse': 'marquee-reverse 40s linear infinite',
+        'testimonial-marquee': 'testimonial-marquee 40s linear infinite',
+      },
+      keyframes: {
+        marquee: {
+          '0%': { transform: 'translateX(0%)' },
+          '100%': { transform: 'translateX(-33.33%)' },
+        },
+        'marquee-reverse': {
+          '0%': { transform: 'translateX(-33.33%)' },
+          '100%': { transform: 'translateX(0%)' },
+        },
+        'testimonial-marquee': {
+          '0%': { transform: 'translateX(0%)' },
+          '100%': { transform: 'translateX(-33.33%)' },
+        },
+      },
       colors: {
         primary: {
           DEFAULT: '#f26d1e',
@@ -30,5 +50,14 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    // This plugin allows us to use 'group-hover:pause' or 'hover:pause'
+    function ({ addUtilities }) {
+      addUtilities({
+        '.pause': {
+          'animation-play-state': 'paused',
+        },
+      })
+    },
+  ],
 };

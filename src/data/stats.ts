@@ -1,6 +1,6 @@
 export const stats = {
-  events: 200,
+  events: 70,
   students: 1500,
-  prizes: 10000,
-  workshops: 50,
+  prizes: "100K",
+  workshops: 35,
 };

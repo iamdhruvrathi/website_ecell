@@ -1,60 +1,34 @@
-import { motion } from "framer-motion";
+import { Quote } from "lucide-react";
 
-interface TestimonialCardProps {
-  testimonial: {
-    id: number;
-    name: string;
-    text: string;
-    image: string;
-    designation: string;
-  };
-}
-
-const TestimonialCard = ({ testimonial }: TestimonialCardProps) => {
+const TestimonialCard = ({ testimonial }: { testimonial: any }) => {
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      className="relative p-0 h-full flex flex-col items-center text-center bg-black"
-    >
-      {/* --- LARGE QUOTATION MARK: EDITORIAL STYLE --- */}
-      <span className="text-8xl md:text-[12rem] font-serif text-white/5 absolute -top-10 md:-top-20 left-1/2 -translate-x-1/2 pointer-events-none select-none italic">
-        “
-      </span>
-
-      {/* --- TEXT: CENTERED & SPACIOUS --- */}
-      <div className="relative z-10 mt-12 mb-16">
-        <p className="text-2xl md:text-4xl font-light tracking-tight text-white leading-[1.4] italic max-w-4xl mx-auto">
-          {testimonial.text}
+    <div className="w-[380px] md:w-[450px] shrink-0 bg-white/[0.02] border border-white/5 p-8 rounded-2xl group/card hover:border-[#39FF14]/30 transition-all duration-500 mx-4 flex flex-col justify-between">
+      <div>
+        <Quote
+          className="text-[#39FF14] mb-6 opacity-40 group-hover/card:opacity-100 transition-opacity"
+          size={24}
+        />
+        <p className="text-sm md:text-base font-light leading-relaxed text-gray-400 mb-8 whitespace-normal">
+          "{testimonial.text}"
         </p>
       </div>
 
-      {/* --- PROFILE: MINIMALIST ATTRIBUTION --- */}
-      <div className="flex flex-col items-center gap-4 relative z-10">
-        <div className="relative">
-          <img
-            src={testimonial.image}
-            alt={testimonial.name}
-            className="w-16 h-16 rounded-full object-cover grayscale brightness-90 border border-white/10 p-0.5 hover:grayscale-0 transition-all duration-700"
-          />
-          {/* Subtle neon glow behind the avatar */}
-          <div className="absolute inset-0 bg-[#39FF14]/10 blur-xl -z-10 rounded-full" />
-        </div>
-
-        <div className="flex flex-col gap-1">
-          <h4 className="text-sm font-bold uppercase tracking-[0.3em] text-white">
+      <div className="flex items-center gap-4 border-t border-white/5 pt-6">
+        <img
+          src={testimonial.image}
+          alt={testimonial.name}
+          className="w-12 h-12 rounded-full object-cover grayscale group-hover/card:grayscale-0 transition-all duration-700 border border-white/10"
+        />
+        <div className="flex flex-col text-left">
+          <h4 className="text-sm font-bold text-white tracking-tight whitespace-nowrap">
             {testimonial.name}
           </h4>
-          <div className="flex items-center justify-center gap-2">
-            <div className="h-px w-4 bg-[#39FF14]/40" />
-            <p className="text-[10px] uppercase tracking-[0.2em] text-gray-500 font-bold">
-              {testimonial.designation}
-            </p>
-            <div className="h-px w-4 bg-[#39FF14]/40" />
-          </div>
+          <p className="text-[9px] uppercase tracking-[0.2em] text-[#39FF14] font-mono whitespace-nowrap">
+            {testimonial.designation}
+          </p>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 };
 

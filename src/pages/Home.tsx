@@ -1,26 +1,23 @@
 import { useState, useEffect } from "react";
-import { motion, Variants, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   ChevronLeft,
   ChevronRight,
   Trophy,
   Users,
-  Target,
   Rocket,
   Zap,
-  Globe,
-  ArrowUpRight,
 } from "lucide-react";
-
-import { heroSlides, partners, testimonials } from "../data";
-import PartnerCard from "../components/PartnerCard";
-import TestimonialCard from "../components/TestimonialCard";
+import { Link } from "react-router-dom";
+import { stats } from "../data/stats";
+import { heroSlides } from "../data";
+import PartnerMarquee from "../components/PartnerMarquee";
+import TestimonialMarquee from "../components/TestimonialMarquee";
 
 const Home = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [currentTestimonial, setCurrentTestimonial] = useState(0);
 
-  // Auto-play Hero logic restored
+  // Auto-play Hero logic
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
@@ -35,23 +32,9 @@ const Home = () => {
       (prev) => (prev - 1 + heroSlides.length) % heroSlides.length
     );
 
-  const containerVars: Variants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { staggerChildren: 0.1 } },
-  };
-
-  const itemVars: Variants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: { type: "spring", stiffness: 100 },
-    },
-  };
-
   return (
     <div className="min-h-screen bg-black text-white selection:bg-[#39FF14] selection:text-black font-sans overflow-x-hidden">
-      {/* --- SUBTLE DOT MATRIX BACKGROUND --- */}
+      {/* Background Matrix */}
       <div
         className="fixed inset-0 z-0 pointer-events-none opacity-[0.12]"
         style={{
@@ -61,7 +44,7 @@ const Home = () => {
       />
 
       <div className="relative z-10">
-        {/* --- HERO SECTION: FULL SLIDING LOGIC --- */}
+        {/* --- HERO SECTION --- */}
         <section className="relative h-screen flex items-center justify-center overflow-hidden border-b border-white/5">
           <AnimatePresence mode="wait">
             <motion.div
@@ -88,14 +71,6 @@ const Home = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             >
-              <div className="flex items-center justify-center gap-3 mb-8">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#39FF14] shadow-[0_0_8px_#39FF14]" />
-                <span className="text-gray-500 uppercase tracking-[0.4em] text-[10px] font-bold">
-                  Building Bold Ideas
-                </span>
-              </div>
-
-              {/* Title logic: First word white, rest gray */}
               <h1 className="text-6xl md:text-[8rem] font-bold mb-8 tracking-tighter leading-[0.9]">
                 {heroSlides[currentSlide].title.split(" ").map((word, i) => (
                   <span
@@ -112,17 +87,23 @@ const Home = () => {
               </p>
 
               <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-                <button className="px-10 py-4 bg-white text-black font-bold uppercase text-[10px] tracking-[0.2em] hover:bg-[#39FF14] transition-all duration-500">
-                  Get Incubated
-                </button>
-                <button className="px-10 py-4 border border-white/10 hover:border-white/40 transition-all text-[10px] font-bold uppercase tracking-[0.2em]">
-                  View Ecosystem
-                </button>
+                <Link
+                  to="/events"
+                  className="px-10 py-4 bg-white text-black font-bold uppercase text-[10px] tracking-[0.2em] hover:bg-[#39FF14] transition-all duration-500"
+                >
+                  View Upcoming Events
+                </Link>
+                <Link
+                  to="/about"
+                  className="px-10 py-4 border border-white/10 hover:border-white/40 transition-all text-[10px] font-bold uppercase tracking-[0.2em]"
+                >
+                  More About Us
+                </Link>
               </div>
             </motion.div>
           </div>
 
-          {/* Slider Controls (Arrow Buttons) */}
+          {/* Controls */}
           <div className="absolute bottom-12 right-12 flex gap-4 z-20">
             <button
               onClick={prevSlide}
@@ -138,7 +119,7 @@ const Home = () => {
             </button>
           </div>
 
-          {/* Slide Progress Line */}
+          {/* Progress Bar */}
           <div className="absolute bottom-0 left-0 w-full h-[1px] bg-white/5">
             <motion.div
               key={currentSlide}
@@ -150,14 +131,30 @@ const Home = () => {
           </div>
         </section>
 
-        {/* --- STATS SECTION: MINIMALIST ROW --- */}
+        {/* --- STATS SECTION --- */}
         <section className="bg-black py-24 border-b border-white/5">
           <div className="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-12">
             {[
-              { label: "Venture Capital", val: "$12M+", icon: Zap },
-              { label: "Startups", val: "45", icon: Rocket },
-              { label: "Global Mentors", val: "100+", icon: Globe },
-              { label: "Exit Success", val: "12", icon: Trophy },
+              {
+                label: "Events Conducted",
+                val: `${stats.events}+`,
+                icon: Rocket,
+              },
+              {
+                label: "Students Impacted",
+                val: `${stats.students}+`,
+                icon: Users,
+              },
+              {
+                label: "Prize Pool Worth",
+                val: `₹${stats.prizes}+`,
+                icon: Trophy,
+              },
+              {
+                label: "Workshops Hosted",
+                val: `${stats.workshops}+`,
+                icon: Zap,
+              },
             ].map((stat, i) => (
               <div
                 key={i}
@@ -174,78 +171,48 @@ const Home = () => {
           </div>
         </section>
 
-        {/* --- PARTNERS SECTION: THE STRIPE GRID --- */}
-        <section className="py-32 bg-black">
-          <div className="max-w-7xl mx-auto px-6">
-            <div className="flex flex-col mb-20 items-center text-center">
-              <span className="text-[#39FF14] text-[10px] font-bold uppercase tracking-[0.5em] mb-4">
-                Official Partners
-              </span>
-              <h2 className="text-5xl md:text-7xl font-bold tracking-tighter">
-                Strategic{" "}
-                <span className="text-gray-600 italic">Alliances.</span>
-              </h2>
+        {/* --- PARTNERS SECTION --- */}
+        <section className="py-40 bg-black overflow-hidden">
+          <div className="max-w-7xl mx-auto px-6 mb-20">
+            <div className="flex flex-col md:flex-row items-center md:items-end justify-between gap-6 text-center md:text-left">
+              <div>
+                <span className="text-[#39FF14] text-[10px] font-bold uppercase tracking-[0.5em] mb-4 block">
+                  Industry & Ecosystem
+                </span>
+                <h2 className="text-5xl md:text-7xl font-bold tracking-tighter">
+                  Our <span className="text-gray-600 italic">Partners.</span>
+                </h2>
+              </div>
+              <p className="text-gray-500 font-mono text-[10px] uppercase tracking-widest">
+                Collaborating to empower student innovation.
+              </p>
             </div>
-
-            <motion.div
-              variants={containerVars}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              className="grid grid-cols-2 md:grid-cols-4 gap-px bg-white/10 border border-white/10"
-            >
-              {partners.map((partner) => (
-                <motion.div
-                  key={partner.id}
-                  variants={itemVars}
-                  className="bg-black aspect-square flex items-center justify-center p-12 group transition-colors hover:bg-white/[0.02]"
-                >
-                  <div className="grayscale opacity-30 group-hover:opacity-100 transition-all duration-700">
-                    <PartnerCard partner={partner} />
-                  </div>
-                </motion.div>
-              ))}
-            </motion.div>
+          </div>
+          <PartnerMarquee />
+          <div className="mt-4 opacity-50">
+            <PartnerMarquee reverse />
           </div>
         </section>
 
-        {/* --- TESTIMONIALS --- */}
-        <section className="py-32 bg-black border-t border-white/5">
-          <div className="max-w-7xl mx-auto px-6 text-center">
-            <div className="max-w-4xl mx-auto">
-              <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-gray-700 mb-12 block">
-                Community Voices
-              </span>
-
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={currentTestimonial}
-                  initial={{ opacity: 0, scale: 0.98 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 1.02 }}
-                  transition={{ duration: 0.5 }}
-                >
-                  <TestimonialCard
-                    testimonial={testimonials[currentTestimonial]}
-                  />
-                </motion.div>
-              </AnimatePresence>
-
-              <div className="flex justify-center gap-4 mt-16">
-                {testimonials.map((_, i) => (
-                  <button
-                    key={i}
-                    onClick={() => setCurrentTestimonial(i)}
-                    className={`h-0.5 transition-all duration-700 ${
-                      i === currentTestimonial
-                        ? "w-12 bg-[#39FF14]"
-                        : "w-6 bg-white/10"
-                    }`}
-                  />
-                ))}
+        {/* --- TESTIMONIALS SECTION --- */}
+        <section className="py-32 bg-black border-t border-white/5 overflow-hidden">
+          <div className="max-w-7xl mx-auto px-6 mb-16">
+            <div className="flex flex-col items-center text-center">
+              <div className="relative z-20 flex items-center gap-2 mb-4">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#39FF14] opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-[#39FF14]"></span>
+                </span>
+                <span className="text-[10px] font-bold uppercase tracking-[0.5em] text-[#39FF14] font-mono">
+                  Voices of the Ecosystem
+                </span>
               </div>
+              <h2 className="text-5xl md:text-7xl font-bold tracking-tighter relative z-10">
+                Testi<span className="text-gray-600 italic">monials.</span>
+              </h2>
             </div>
           </div>
+          <TestimonialMarquee />
         </section>
       </div>
     </div>
