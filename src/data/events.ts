@@ -17,7 +17,7 @@ export const events = [
         "description": "Interactive E-Cell stall featuring business quizzes and financial analysis activities.",
         "date": "2023-10-10",
         "venue": "UVCE Campus",
-        "image": "https://res.cloudinary.com/demo/image/upload/marvel-open-day.jpg",
+        "image": "https://res.cloudinary.com/dsrudxfnx/image/upload/v1769017775/MarvelOpenDay_muiy9h.png",
         "type": "past",
         "registrationLink": "",
         "fullDescription": "On October 10, 2023, UVCE buzzed with excitement during Marvel Open Day, organized by MARVEL, the R&D Lab for students. The event allowed students to display their innovative projects, attracting visitors from across the college and beyond. E-Cell UVCE also participated with an interactive stall that drew the highest footfall.\n We hosted two engaging activities: a 'Guess the Logo game', where participants identified logos of top Indian companies across sectors like FMCG, IT, and Pharma, followed by a discussion of their products. The second activity involved analyzing anonymous balance sheets, where students assessed companies based on assets, liabilities, and cash flows.\n The stall’s activities sparked enthusiasm, with students returning to re-participate. Winners took home goodies, and many left with valuable insights into company branding and financials. Overall, Marvel Open Day was a vibrant platform for learning and exploration."
@@ -28,7 +28,7 @@ export const events = [
         "description": "Pre-event workshop focused on stock market fundamentals and trading strategies.",
         "date": "2023-10-15",
         "venue": "UVCE",
-        "image": "https://res.cloudinary.com/demo/image/upload/learn-to-trade.jpg",
+        "image": "https://res.cloudinary.com/dsrudxfnx/image/upload/v1769017772/LearnToTradeWorkshop_oi29om.jpg",
         "type": "past",
         "registrationLink": "",
         "fullDescription": "On October 15th 2023, we conducted a 'Learn to Trade' workshop in preparation for Bull Market 6.0. The workshop was led by our alumnus, Shubham Kumar M, who delivered an insightful and engaging presentation. His guidance helped participants gain a deeper understanding of stock trading, equipping them with the skills and strategies needed to excel in the upcoming competition. The session provided valuable insights into market dynamics, making it an excellent primer for the Bull Market 6.0 event that followed. Shubham Kumar’s expertise and ability to simplify complex trading concepts contributed significantly to the success of the workshop."
@@ -39,7 +39,7 @@ export const events = [
         "description": "National-level virtual stock trading competition with participants from across India.",
         "date": "2023-10-16",
         "venue": "Online",
-        "image": "https://res.cloudinary.com/demo/image/upload/bull-market.jpg",
+        "image": "https://res.cloudinary.com/dsrudxfnx/image/upload/v1769017773/BullMarket6.0_pldl0u.jpg",
         "type": "past",
         "registrationLink": "",
         "fullDescription": "We successfully organized Bull Market 6.0 on the 16th and 17th of October 2023, in collaboration with StockGro, a leading virtual stock trading platform. This national-level event saw enthusiastic participation, with 547 individuals from across India competing in an intense, skill-driven trading environment.\n Participants had a 48-hour window to execute virtual trades, using their market knowledge and analytical abilities to maximize profits. The competition fostered a spirit of learning and challenge, as traders navigated real-time stock simulations. At the end of the event, the participant with the highest profits emerged as the winner.\n Bull Market 6.0 provided an exceptional platform for individuals to sharpen their trading skills, network with like-minded enthusiasts, and gain practical experience in a risk-free setting. The collaboration with StockGro brought added value and professionalism, making it a truly enriching experience for all involved."
@@ -50,7 +50,7 @@ export const events = [
         "description": "Interactive session with members and Bull Market winners sharing experiences.",
         "date": "2023-10-18",
         "venue": "UVCE",
-        "image": "https://res.cloudinary.com/demo/image/upload/meet-and-greet.jpg",
+        "image": "https://res.cloudinary.com/dsrudxfnx/image/upload/v1769017775/MeetAndGreet_xcltuy.png",
         "type": "past",
         "registrationLink": "",
         "fullDescription": "The members Meet and Greet session was held on October 18th, 2023. It was incredibly informative, leaving attendees enlightened and inspired. Participants had the opportunity to engage in meaningful discussions, ask questions, and gain valuable insights on various topics. Winners of Bull Market 6.0 were awarded and Faculty Coordinator Mr. K P Guruswamy addressed the gathering. Participants of Bull Market 6.0 also shared their experiences and learnings from the event. Later in-depth analysis and practical advice on Stock Market were shared, making the event not only engaging but also intellectually stimulating.The session fostered an atmosphere of learning and collaboration, making it a truly enriching experience for everyone involved."
@@ -61,7 +61,7 @@ export const events = [
         "description": "Three-day entrepreneurship workshop led by industry leaders and alumni.",
         "date": "2023-11-20",
         "venue": "Senate Hall, UVCE",
-        "image": "https://res.cloudinary.com/demo/image/upload/startup-to-win.jpg",
+        "image": "https://res.cloudinary.com/dsrudxfnx/image/upload/v1769017774/StartupToWin_ufjpba.jpg",
         "type": "past",
         "registrationLink": "",
         "fullDescription": "The 'Start-Up to Win' workshop conducted by E-Cell UVCE was a transformative journey for aspiring entrepreneurs, guided by industry expert Mr. B.V. Jagadeesh, a seasoned entrepreneur, VC and the chairman of UVCE Foundation along.with a panel of distinguished UVCE alumni. Over three dynamic days, attendees gained invaluable insights into the diverse world of startups.\n Day 1 commenced with Mr. B.V. Jagadeesh's personal introduction and discourse on startup successes and failures, emphasising on storytelling, technological impact, and the diverse roles which need to be taken up within startups. The audience got introduced to concepts like stock exchange and liquidity along with the mention of TechCrunch. They engaged in interactive sessions, creating an interactive tone for the workshop.\n On day 2, Mr. B. V. Jagadeesh explained many crucial concepts like CPS(Consistency, Perseverance, and Self-Drive), goal setting, transition of technology from PC to internet to AI, market segmentation, customer acquisition and retention. These concepts were broken down in simple terms with many real life examples. He emphasised on starting with “Why?” before “How?” when building a company.\n Day 3 featured a panel discussion featuring UVCE alumni, including B.V. Jagadeesh, Naganand Doraswamy, Ravikiran Annaswamy, S Bhagavan, Sundararajan R, Raghava Kashyapa, and Alice Abraham. The main objective of this discussion was to help the students to find the right career path. The panellists shared their personal journeys, emphasising on human networking, continuous learning of skills and some valuable life lessons. The audience were enlightened after their career related doubts were cleared by the panellists. The panel discussion served as a conclusion of the workshop, offering attendees the opportunity to gain insights from experienced entrepreneurs."
@@ -72,7 +72,7 @@ export const events = [
         "description": "Business and general awareness quiz conducted during the cultural fest Fiesta.",
         "date": "2024-01-06",
         "venue": "UVCE Fiesta Grounds",
-        "image": "https://res.cloudinary.com/demo/image/upload/fiesta-stall.jpg",
+        "image": "https://res.cloudinary.com/dsrudxfnx/image/upload/v1769018579/fiesta_ivoo8k.png",
         "type": "past",
         "registrationLink": "",
         "fullDescription": "On January 6th 2024, E-Cell UVCE hosted an exciting quiz competition during the cultural fest Fiesta. The event invited students to test their knowledge on a variety of business and general awareness topics using the interactive platform, Mentimeter. The quiz covered diverse topics, challenging participants with questions ranging from business terminology to financial markets.\n Students enthusiastically participated, eager to showcase their knowledge and quick thinking. The interactive format kept the energy high, as participants competed for the top spot. The winners were rewarded with exciting goodies, making the event even more memorable.\n This initiative by E-Cell UVCE successfully engaged students and fostered a spirit of learning and competition, adding to the vibrancy of Fiesta."
@@ -83,7 +83,7 @@ export const events = [
         "description": "Session on building e-commerce businesses using the dropshipping model.",
         "date": "2024-03-27",
         "venue": "Senate Hall, UVCE",
-        "image": "https://res.cloudinary.com/demo/image/upload/dropshipping.jpg",
+        "image": "https://res.cloudinary.com/dsrudxfnx/image/upload/v1769017773/DropSHipping_h7uijt.jpg",
         "type": "past",
         "registrationLink": "",
         "fullDescription": "On March 27th, E-Cell UVCE hosted an insightful session titled 'Dropshipping Decoded' featuring Ankit Patra, the Founder and CEO of Magnova. Patra, a prominent entrepreneur with extensive experience in dropshipping, provided a comprehensive overview of this innovative e-commerce model.\n Dropshipping allows businesses to sell products without holding inventory; instead, orders are forwarded to suppliers who handle fulfilment. During the session, Patra detailed his journey and shared practical advice on leveraging dropshipping for substantial income with minimal upfront investment. He discussed the advantages of this business model, such as reduced financial risk and operational simplicity, and offered tips for successfully navigating the dropshipping landscape.\n The event was a significant success, offering UVCE students valuable insights into modern e-commerce strategies and entrepreneurial opportunities. Patra’s engaging presentation left attendees inspired and equipped with the knowledge to explore dropshipping as a viable business option."
@@ -94,7 +94,7 @@ export const events = [
         "description": "Self-improvement and productivity session by entrepreneur Ishan Sharma.",
         "date": "2024-04-10",
         "venue": "Senate Hall, UVCE",
-        "image": "https://res.cloudinary.com/demo/image/upload/best-you.jpg",
+        "image": "https://res.cloudinary.com/dsrudxfnx/image/upload/v1769017772/BeUrBest_z2xfco.jpg",
         "type": "past",
         "registrationLink": "",
         "fullDescription": "‘Becoming the Best You’, an event organised by E-Cell UVCE was a transformative session filled with learning and lessons on making wise use of time and the importance of continuous upskilling in life. Conducted on 10th April, at Senate Hall, the event had an audience of over hundred students from varying branches and years. Ishan Sharma, a content creator and entrepreneur, co-founder of MarkitUp and Sentora was the speaker, who shared insights and guidance for self-improvement.\n From sharing his incredible growth journey, to guiding the audience to make their journeys incredible too, Ishaan clearly explained the entire process of setting a clear goal and achieving it. Prioritising the needs according to our goals and achieving them by following some basic activities and steps when routinely done was a major message conveyed to the audience. He patiently addressed the queries and uncertainties of the audience, leaving no stone unturned in their pursuit of personal excellence. The event ended with our faculty co-ordinator Dr. K P Guruswamy presenting Ishan with a token of gratitude and a heartwarming gesture from Ishan Sharma, who graciously invited attendees to engage with him personally"
@@ -105,7 +105,7 @@ export const events = [
         "description": "Personal branding and career development workshop by alumnus Pratik Shanbhag.",
         "date": "2024-04-19",
         "venue": "UVCE",
-        "image": "https://res.cloudinary.com/demo/image/upload/find-your-spark.jpg",
+        "image": "https://res.cloudinary.com/dsrudxfnx/image/upload/v1769017772/FIndUrSpark_jkvmg9.jpg",
         "type": "past",
         "registrationLink": "",
         "fullDescription": "The 'Find Your Spark' workshop, led by our esteemed alumnus Pratik Shanbagh on 19th April (2015-2019 batch, Electrical and Electronics Engineering), was an engaging and insightful event. During the session, we explored several key areas critical to both professional and personal development.\n Key takeaways included understanding what makes brands unique and memorable, and how these principles can be applied to identify drivers for building a strong personal brand. We also learned the importance of leveraging social media platforms, particularly LinkedIn, to establish and enhance our brand presence.\n Moreover, Pratik shared valuable tips on standing out in placements, emphasizing strategies that can set us apart in a competitive environment. The workshop concluded with an exciting 21-day 'Find Your Spark' challenge, where participants were encouraged to post regularly on LinkedIn to actively work on their personal brand.\n Overall, the session was highly beneficial and left us motivated to take actionable steps toward shaping our individual brands."
@@ -116,7 +116,7 @@ export const events = [
         "description": "Interactive stall introducing juniors to entrepreneurship and industry sectors.",
         "date": "2024-05-09",
         "venue": "UVCE Campus",
-        "image": "https://res.cloudinary.com/demo/image/upload/jaathre.jpg",
+        "image": "https://res.cloudinary.com/dsrudxfnx/image/upload/v1769019253/jaathre_dw0qyp.png",
         "type": "past",
         "registrationLink": "",
         "fullDescription": "On May 9, 2024, the E-Cell Club of UVCE showcased our stall at the Jaathre event,designed to introduce juniors to campus clubs and activities. We organized two activities: a quiz on entrepreneurship and ‘Guess the Industry’, where participants categorized companies into EdTech, FinTech, and HealthTech sectors.\n Participants who completed the activities were rewarded with chocolates and E-Cell badges. The stall successfully engaged many juniors, enhancing their understanding of various industry sectors and promoting our club. The event was a great opportunity to spark curiosity and interest in entrepreneurship among the new students."
@@ -127,7 +127,7 @@ export const events = [
         "description": "Hands-on workshop exploring Web3 and blockchain fundamentals.",
         "date": "2024-05-29",
         "venue": "Senate Hall, UVCE",
-        "image": "https://res.cloudinary.com/demo/image/upload/blockchain.jpg",
+        "image": "https://res.cloudinary.com/dsrudxfnx/image/upload/v1769017774/Web3BlockChain_ffzowd.jpg",
         "type": "past",
         "registrationLink": "",
         "fullDescription": "On May 29, 2024, the Senate Hall was alive with energy as E-Cell UVCE, in collaboration with IIT-Bombay's innovative start-up SwapSo, held an exclusive workshop on 'Exploring Web3 and Blockchain Technologies.' This event aimed to demystify blockchain and its applications, drawing a crowd of enthusiastic students and tech lovers.\n Starting at 3 PM, the workshop delved into Web3 and blockchain basics. The SwapSo team made complex concepts easy to understand, with practical demos and real-world examples. In the Q&A session, attendees got to engage directly with the expert.\n All attendees would get a certificate of participation and exciting discounts for SwapSo's future programs, adding extra value to the experience.\n The event was a huge success, thanks to SwapSo and all the participants. Keep an eye out for more exciting events from E-Cell UVCE"
@@ -138,7 +138,7 @@ export const events = [
         "description": "Case study competition focused on strategic and analytical problem-solving.",
         "date": "2024-07-18",
         "venue": "Senate Hall, UVCE",
-        "image": "https://res.cloudinary.com/demo/image/upload/strategy-sprint.jpg",
+        "image": "https://res.cloudinary.com/dsrudxfnx/image/upload/v1769017772/StrategySprint_hpliww.jpg",
         "type": "past",
         "registrationLink": "",
         "fullDescription": "On July 18th, the college witnessed an exhilarating display of creativity and strategic thinking during the highly anticipated 'Strategy Sprint' case study competition. Hosted by E-Cell UVCE, this event brought together teams from across the institution to tackle complex business challenges and present innovative solutions.\n It was a platform for students to showcase their problem-solving prowess and strategic acumen. The event drew enthusiastic participants who were eager to demonstrate their analytical skills and creative thinking.\n Each team was assigned a distinct case study, tailored to challenge their understanding of real-world business issues. The participants immersed themselves in their respective cases, conducting thorough analyses and devising strategies. Their presentations were a testament to their hard work, featuring well-researched insights and innovative solutions designed to address the challenges presented in their case studies.\n A key highlight of the competition was the presence of esteemed guest judges, Mr. Ramesh Babu and Mr. Srinivasa Iyer. Their expertise and discerning evaluation added a layer of prestige to the event. Both judges provided valuable feedback and insights, helping to further enrich the learning experience for all participants. Each team brought a unique perspective to their case studies, demonstrating not only their grasp of theoretical concepts but also their ability to apply them in practical scenarios.\n In summary, 'Strategy Sprint'  was a resounding success, providing a dynamic platform for students to push the boundaries of their problem-solving skills and strategic thinking. The event highlighted the talent and creativity within the college, setting a high standard for future competitions"
@@ -149,7 +149,7 @@ export const events = [
         "description": "Rapid problem-solving challenge focused on creative thinking with limited resources.",
         "date": "2025-11-19",
         "venue": "Centenary Seminar Hall,UVCE",
-        "image": null,
+        "image": "https://res.cloudinary.com/dsrudxfnx/image/upload/v1768933441/Jugaad2.0_mtduyk.jpg",
         "type": "past",
         "registrationLink": "",
         "fullDescription": "Jugaad 2.0 was an intense and fast-paced innovation challenge that pushed participants to think creatively under pressure. Conducted at UVCE, the event focused on encouraging unconventional problem-solving by placing strict constraints on time, materials, and resources. Teams were required to ideate, design, and present solutions using only the limited materials provided, making adaptability and creativity the key drivers of success.\n Participants enthusiastically collaborated within their teams, brainstorming ideas and rapidly transforming them into workable prototypes. The challenge demanded quick decision-making, effective teamwork, and the ability to pivot ideas when faced with constraints. Despite the limitations, teams showcased impressive ingenuity, proving that impactful solutions do not always require extensive resources.\n Jugaad 2.0 successfully fostered a mindset of innovation and resilience among students. The event highlighted the importance of creative thinking in real-world problem-solving scenarios and reinforced the entrepreneurial principle of doing more with less. Overall, the competition was an engaging and inspiring experience that celebrated creativity, collaboration, and resourcefulness."
@@ -160,7 +160,7 @@ export const events = [
         "description": "Creative competition where teams designed advertisements using randomly assigned products.",
         "date": "2025-09-10",
         "venue": "Senate Hall, UVCE",
-        "image": null,
+        "image": "https://res.cloudinary.com/dsrudxfnx/image/upload/v1768933442/MarketingAds_igcqou.jpg",
         "type": "past",
         "registrationLink": "",
         "fullDescription": "The Marketing Ads Competition was a vibrant and creativity-driven event that tested participants’ ability to think like marketers, storytellers, and brand strategists. Teams were randomly assigned products and were challenged to conceptualize and present compelling advertisements within a limited time frame. The competition encouraged participants to combine creativity with strategy to effectively communicate product value.\n Participants expressed their ideas through posters, slogans, skits, and innovative pitches, showcasing a wide range of creative approaches. The time constraint added an exciting intensity to the event, pushing teams to collaborate efficiently and refine their messaging quickly. Judges evaluated entries based on originality, clarity of communication, and overall impact.\n The event provided students with practical exposure to marketing fundamentals such as branding, positioning, and audience engagement. The Marketing Ads Competition proved to be an enriching platform that nurtured creativity, teamwork, and confidence, while also offering participants a glimpse into real-world advertising challenges."
@@ -171,7 +171,7 @@ export const events = [
         "description": "Coding hackathon encouraging creative and collaborative problem-solving.",
         "date": "2025-10-29",
         "venue": "Online",
-        "image": null,
+        "image": "https://res.cloudinary.com/dsrudxfnx/image/upload/v1768933443/Vibecoding_t3v4sh.jpg",
         "type": "past",
         "registrationLink": "",
         "fullDescription": "The Vibe Coding Hackathon was a collaborative and innovation-focused coding event that brought together students passionate about technology and problem-solving. Participants worked in teams to develop technical solutions addressing real-world challenges within a limited timeframe. The hackathon emphasized creativity, logical thinking, and teamwork over perfection.\n Throughout the event, teams brainstormed ideas, divided responsibilities, and worked intensively to build functional solutions. The atmosphere was energetic and encouraging, with participants continuously exchanging ideas and refining their approaches. The hackathon provided a space for experimentation, allowing students to explore technologies and implement concepts beyond classroom learning.\n The Vibe Coding Hackathon successfully fostered a culture of collaboration and innovation. It encouraged participants to think critically, code efficiently, and work cohesively as a team. Overall, the event was a valuable learning experience that strengthened technical skills and inspired students to pursue innovative problem-solving through technology."
@@ -182,7 +182,7 @@ export const events = [
         "description": "Session focused on financial literacy, wealth creation, and smart investing.",
         "date": "2025-08-20",
         "venue": "Senate Hall, UVCE",
-        "image": null,
+        "image": "https://res.cloudinary.com/dsrudxfnx/image/upload/v1768933439/InvestmentAwareness_gweiyu.jpg",
         "type": "past",
         "registrationLink": "",
         "fullDescription": "The Investment Awareness Program was organized to promote financial literacy and responsible investing among students. Conducted in collaboration with the BFSI Sector Skill Council of India, the session was led by Mrs. Girijarani Kavadapu, Joint AVP at HDFC Asset Management Company. The program aimed to introduce participants to the fundamentals of personal finance and long-term wealth creation.\n The session covered essential topics such as financial planning, mutual funds, SIPs, risk management, and disciplined investing. Complex financial concepts were explained in a clear and relatable manner, making them accessible even to students with no prior exposure to finance. Participants actively engaged by asking questions and seeking clarity on real-world financial scenarios.\n The Investment Awareness Program empowered students with knowledge to make informed financial decisions. By emphasizing long-term planning and smart investing habits, the event helped participants build a strong foundation for financial independence and responsibility"
@@ -193,7 +193,7 @@ export const events = [
         "description": "Launch of a campus wide initiative to strengthen student-led innovation and entrepreneurial ventures at UVCE.",
         "date": "2025-11-25",
         "venue": "Senate Hall, UVCE",
-        "image": null,
+        "image": "https://res.cloudinary.com/dsrudxfnx/image/upload/v1768933439/BRIDGE_zdu41o.jpg",
         "type": "past",
         "registrationLink": "",
         "fullDescription": "The launch of the BRIDGE Initiative and the Sir M. Visvesvaraya Entrepreneur & Startup Fellowship marked a significant step towards strengthening the entrepreneurial ecosystem at UVCE. Conducted in association with MARVEL UVCE, the initiative aims to provide structured mentorship, resources, and long-term support to student-led ventures.\n The program brings together students, faculty, and the UVCE Graduates Association to create a collaborative environment where innovative ideas can be nurtured and transformed into impactful enterprises. The initiative emphasizes sustained support, practical guidance, and real-world exposure to help students navigate the entrepreneurial journey.\n This launch reinforced UVCE’s commitment to fostering innovation and entrepreneurship on campus. By establishing a strong support system, the BRIDGE Initiative seeks to position UVCE as a hub for entrepreneurial excellence and student-driven innovation."
