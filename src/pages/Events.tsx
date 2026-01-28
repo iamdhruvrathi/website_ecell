@@ -1,186 +1,303 @@
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Search, Calendar, MapPin, ArrowUpRight } from "lucide-react";
-import { events as eventsData } from "../data";
+import { motion } from "framer-motion";
+import { Sparkles, ChevronDown } from "lucide-react";
+import { events as eventsData } from "../data/events";
 import EventCard from "../components/EventCard";
-import Modal from "../components/Modal";
-
-interface Event {
-  id: number;
-  title: string;
-  description: string;
-  date: string;
-  venue: string;
-  image: string;
-  type: string;
-  registrationLink?: string;
-  fullDescription?: string;
-}
 
 const Events = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [activeTab, setActiveTab] = useState("upcoming");
-  const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
+  const [expandedSections, setExpandedSections] = useState<
+    Record<string, boolean>
+  >({
+    upcoming: true,
+    featured: true,
+    past: true,
+  });
 
-  const filteredEvents = eventsData.filter(
+  const ITEMS_PER_PAGE = 6;
+
+  // Filter events by section and search term
+  const upcomingEvents = eventsData.filter(
     (e) =>
-      e.type === activeTab &&
-      e.title.toLowerCase().includes(searchTerm.toLowerCase())
+      e.section === "upcoming" &&
+      e.title.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
+  const featuredEvents = eventsData.filter(
+    (e) =>
+      e.section === "featured" &&
+      e.title.toLowerCase().includes(searchTerm.toLowerCase()),
+  );
+
+  const pastEvents = eventsData.filter(
+    (e) =>
+      e.section === "past" &&
+      e.title.toLowerCase().includes(searchTerm.toLowerCase()),
+  );
+
+  // State for pagination
+  const [displayedUpcoming, setDisplayedUpcoming] = useState(ITEMS_PER_PAGE);
+  const [displayedFeatured, setDisplayedFeatured] = useState(ITEMS_PER_PAGE);
+  const [displayedPast, setDisplayedPast] = useState(ITEMS_PER_PAGE);
+
+  const toggleSection = (section: string) => {
+    setExpandedSections((prev) => ({
+      ...prev,
+      [section]: !prev[section],
+    }));
+  };
+
+  const SectionHeader = ({
+    title,
+    subtitle,
+    isExpanded,
+    onToggle,
+  }: {
+    title: string;
+    subtitle: string;
+    isExpanded: boolean;
+    onToggle: () => void;
+  }) => (
+    <motion.button
+      onClick={onToggle}
+      className="w-full text-left"
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+    >
+      <div className="flex flex-col items-center text-center mb-16 md:mb-24 pt-12 sm:pt-16 md:pt-20 px-4 sm:px-0 hover:opacity-80 transition-opacity">
+        <div className="flex items-center gap-2 mb-6">
+          <span className="relative flex h-2 w-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#39FF14] opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-[#39FF14]"></span>
+          </span>
+          <span className="text-[10px] uppercase tracking-[0.5em] text-gray-500 font-bold font-mono">
+            {subtitle}
+          </span>
+        </div>
+        <div className="flex items-center justify-center gap-4">
+          <h2 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter text-white">
+            {title}
+          </h2>
+          <motion.div
+            animate={{ rotate: isExpanded ? 180 : 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            <ChevronDown
+              size={24}
+              className="text-[#39FF14] flex-shrink-0 mt-4"
+            />
+          </motion.div>
+        </div>
+        <div className="h-[1px] w-24 bg-[#39FF14] opacity-50 mt-8" />
+      </div>
+    </motion.button>
+  );
+
+  const EventsGrid = ({
+    events,
+    displayedCount,
+  }: {
+    events: any[];
+    displayedCount: number;
+  }) => (
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {events.slice(0, displayedCount).map((event) => (
+        <motion.div
+          key={event.id}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+        >
+          <EventCard event={event} />
+        </motion.div>
+      ))}
+    </div>
+  );
+
+  const ViewMoreButton = ({
+    onClick,
+    hasMore,
+  }: {
+    onClick: () => void;
+    hasMore: boolean;
+  }) => {
+    if (!hasMore) return null;
+    return (
+      <motion.button
+        onClick={onClick}
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        className="w-full mt-12 py-4 px-8 border-2 border-[#39FF14] text-[#39FF14] font-bold uppercase tracking-[0.2em] text-sm rounded-xl hover:bg-[#39FF14] hover:text-black transition-all"
+      >
+        View More
+      </motion.button>
+    );
+  };
+
   return (
-    <div className="min-h-screen bg-black text-white pt-32 pb-16 selection:bg-[#39FF14] selection:text-black">
-      {/* --- SUBTLE DOT MATRIX BACKGROUND --- */}
+    <div className="min-h-screen bg-black text-white pt-24 sm:pt-28 md:pt-32 pb-12 sm:pb-16 font-sans selection:bg-[#39FF14] selection:text-black">
       <div
-        className="fixed inset-0 pointer-events-none opacity-[0.15]"
+        className="fixed inset-0 pointer-events-none opacity-[0.12]"
         style={{
-          backgroundImage: `radial-gradient(circle, #333 1px, transparent 1px)`,
+          backgroundImage: `radial-gradient(circle, #444 1px, transparent 1px)`,
           backgroundSize: "32px 32px",
         }}
       />
 
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
-        {/* --- HEADER: MASSIVE TYPOGRAPHY --- */}
-        <header className="mb-24">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="flex flex-col gap-4"
-          >
-            <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-[#39FF14] shadow-[0_0_8px_#39FF14]" />
-              <span className="text-[10px] uppercase tracking-[0.4em] text-gray-500 font-bold">
-                Live Portal
-              </span>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
+        {/* --- HEADER SECTION --- */}
+        <motion.section
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="mb-24 md:mb-32"
+        >
+          <div className="flex flex-col items-center text-center">
+            <div className="flex items-center gap-2 mb-6">
+              {/* <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#39FF14] opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#39FF14]"></span>
+              </span> */}
+              {/* <span className="text-[10px] uppercase tracking-[0.5em] text-gray-500 font-bold font-mono">
+                Programs & Engagements.
+              </span> */}
             </div>
-            <h1 className="text-7xl md:text-9xl font-bold tracking-tighter leading-none">
-              Building <br />
-              <span className="text-gray-500">Bold Ideas.</span>
+            <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-[9rem] font-bold tracking-tighter leading-[0.85] mb-8">
+              Events & Initiatives <br />
             </h1>
-          </motion.div>
-        </header>
 
-        {/* --- MINIMAL FILTERS --- */}
-        <div className="flex flex-col md:flex-row justify-between items-end gap-8 mb-12 border-b border-white/10 pb-8">
-          <div className="flex gap-8">
-            {["upcoming", "past"].map((tab) => (
-              <button
-                key={tab}
-                onClick={() => setActiveTab(tab)}
-                className={`text-sm font-bold uppercase tracking-widest transition-all relative pb-2 ${
-                  activeTab === tab
-                    ? "text-white"
-                    : "text-gray-600 hover:text-gray-400"
-                }`}
-              >
-                {tab}
-                {activeTab === tab && (
-                  <motion.div
-                    layoutId="underline"
-                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-white"
-                  />
-                )}
-              </button>
-            ))}
-          </div>
-
-          <div className="relative w-full md:w-80 group">
-            <Search className="absolute left-0 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-600 group-focus-within:text-[#39FF14] transition-colors" />
-            <input
-              type="text"
-              placeholder="Search initiatives"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full bg-transparent border-none pl-8 focus:ring-0 text-sm uppercase tracking-widest placeholder:text-gray-800"
-            />
-          </div>
-        </div>
-
-        {/* --- GRID --- */}
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={activeTab}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="grid grid-cols-1 md:grid-cols-2 gap-px bg-white/10" // The gap creates thin border lines
-          >
-            {filteredEvents.map((event) => (
-              <div
-                key={event.id}
-                className="bg-black p-8 group cursor-pointer transition-colors hover:bg-white/5"
-                onClick={() => setSelectedEvent(event)}
-              >
-                <div className="flex justify-between items-start mb-12">
-                  <span className="text-[10px] font-mono text-gray-600">
-                    ID_{String(event.id).padStart(3, "0")}
-                  </span>
-                  <ArrowUpRight
-                    className="text-gray-800 group-hover:text-[#39FF14] transition-colors"
-                    size={20}
-                  />
-                </div>
-                <h3 className="text-3xl font-bold mb-4 tracking-tight">
-                  {event.title}
-                </h3>
-                <p className="text-gray-500 text-sm max-w-sm line-clamp-2 italic">
-                  {event.description}
-                </p>
-              </div>
-            ))}
-          </motion.div>
-        </AnimatePresence>
-
-        {/* --- MODAL: CLEAN & SPACIOUS --- */}
-        <Modal isOpen={!!selectedEvent} onClose={() => setSelectedEvent(null)}>
-          {selectedEvent && (
-            <div className="bg-black text-white p-12 max-w-4xl mx-auto font-sans">
-              <div className="flex justify-between items-start mb-12">
-                <h2 className="text-5xl font-bold tracking-tighter">
-                  {selectedEvent.title}
-                </h2>
-                <div className="text-right">
-                  <p className="text-[10px] uppercase tracking-widest text-gray-500">
-                    Location
-                  </p>
-                  <p className="text-sm font-bold">{selectedEvent.venue}</p>
-                </div>
-              </div>
-
-              <div className="grid md:grid-cols-2 gap-16">
-                <div>
-                  <p className="text-gray-400 leading-relaxed text-lg">
-                    {selectedEvent.fullDescription || selectedEvent.description}
-                  </p>
-                </div>
-                <div className="flex flex-col justify-between">
-                  <div className="space-y-4">
-                    <div className="flex items-center gap-3">
-                      <Calendar size={16} className="text-[#39FF14]" />
-                      <span className="text-sm uppercase font-bold tracking-widest">
-                        {selectedEvent.date}
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <MapPin size={16} className="text-[#39FF14]" />
-                      <span className="text-sm uppercase font-bold tracking-widest">
-                        {selectedEvent.venue}
-                      </span>
-                    </div>
-                  </div>
-
-                  {selectedEvent.type === "upcoming" && (
-                    <a
-                      href={selectedEvent.registrationLink}
-                      className="mt-12 block w-full bg-white text-black py-4 text-center font-bold uppercase tracking-widest hover:bg-[#39FF14] transition-colors"
-                    >
-                      Apply to participate
-                    </a>
-                  )}
-                </div>
-              </div>
+            {/* Search Bar */}
+            <div className="relative w-full sm:w-96 group mt-8 sm:mt-12">
+              <input
+                type="text"
+                placeholder="SEARCH ALL INITIATIVES..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full bg-zinc-900/30 border border-white/5 rounded-full py-3 sm:py-4 pl-12 pr-6 text-[9px] sm:text-[10px] font-mono tracking-widest focus:border-[#39FF14]/30 focus:outline-none transition-all"
+              />
             </div>
+          </div>
+        </motion.section>
+
+        {/* --- UPCOMING SECTION --- */}
+        {upcomingEvents.length > 0 && (
+          <motion.section
+            className="mb-32 md:mb-40"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+          >
+            <SectionHeader
+              title="Upcoming"
+              subtitle="Scheduled and Ongoing Initiatives"
+              isExpanded={expandedSections.upcoming}
+              onToggle={() => toggleSection("upcoming")}
+            />
+            {expandedSections.upcoming && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+              >
+                <EventsGrid
+                  events={upcomingEvents}
+                  displayedCount={displayedUpcoming}
+                />
+                <ViewMoreButton
+                  hasMore={displayedUpcoming < upcomingEvents.length}
+                  onClick={() =>
+                    setDisplayedUpcoming((prev) => prev + ITEMS_PER_PAGE)
+                  }
+                />
+              </motion.div>
+            )}
+          </motion.section>
+        )}
+
+        {/* --- FEATURED SECTION --- */}
+        {featuredEvents.length > 0 && (
+          <motion.section
+            className="mb-32 md:mb-40"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+          >
+            <SectionHeader
+              title="Featured"
+              subtitle="Flagship Programs and Key Initiatives"
+              isExpanded={expandedSections.featured}
+              onToggle={() => toggleSection("featured")}
+            />
+            {expandedSections.featured && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+              >
+                <EventsGrid
+                  events={featuredEvents}
+                  displayedCount={displayedFeatured}
+                />
+                <ViewMoreButton
+                  hasMore={displayedFeatured < featuredEvents.length}
+                  onClick={() =>
+                    setDisplayedFeatured((prev) => prev + ITEMS_PER_PAGE)
+                  }
+                />
+              </motion.div>
+            )}
+          </motion.section>
+        )}
+
+        {/* --- PAST EVENTS SECTION --- */}
+        {pastEvents.length > 0 && (
+          <motion.section
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+          >
+            <SectionHeader
+              title="Past"
+              subtitle="Highlights from Previous Initiatives"
+              isExpanded={expandedSections.past}
+              onToggle={() => toggleSection("past")}
+            />
+            {expandedSections.past && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+              >
+                <EventsGrid
+                  events={pastEvents}
+                  displayedCount={displayedPast}
+                />
+                <ViewMoreButton
+                  hasMore={displayedPast < pastEvents.length}
+                  onClick={() =>
+                    setDisplayedPast((prev) => prev + ITEMS_PER_PAGE)
+                  }
+                />
+              </motion.div>
+            )}
+          </motion.section>
+        )}
+
+        {/* --- NO RESULTS STATE --- */}
+        {upcomingEvents.length === 0 &&
+          featuredEvents.length === 0 &&
+          pastEvents.length === 0 && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="text-center py-24"
+            >
+              <Sparkles className="w-16 h-16 mx-auto mb-6 text-zinc-700" />
+              <p className="text-zinc-600 font-mono text-sm uppercase tracking-widest">
+                No events match your search
+              </p>
+            </motion.div>
           )}
-        </Modal>
       </div>
     </div>
   );

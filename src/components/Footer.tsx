@@ -72,7 +72,7 @@ const Footer = () => {
             <h3 className="text-[10px] font-bold uppercase tracking-[0.4em] text-gray-600 mb-8 font-mono">
               Quick Links
             </h3>
-            <ul className="grid grid-cols-2 gap-x-4 gap-y-3 font-mono text-[10px] uppercase tracking-widest">
+            <ul className="grid grid-cols-1 gap-x-4 gap-y-3 font-mono text-[10px] uppercase tracking-widest">
               {[
                 "About",
                 "Events",
