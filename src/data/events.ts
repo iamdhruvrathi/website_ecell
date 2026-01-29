@@ -11,6 +11,17 @@ export const events = [
     //     "fullDescription": "Start-Up to Win 3.0 is the upcoming edition of E-Cell UVCE's flagship entrepreneurship workshop, designed to guide aspiring entrepreneurs through the foundational stages of building successful startups. Led by Mr. B.V. Jagadeesh along with experienced alumni entrepreneurs, the three-day program aims to bridge the gap between ideas and execution.\n Participants will be introduced to key concepts such as idea validation, market research, customer discovery, and startup execution strategies. The workshop will combine real-world examples, interactive discussions, and mentorship sessions to provide participants with practical insights into entrepreneurship.\n Building on the success of previous editions, Start-Up to Win 3.0 aims to inspire and equip students with the mindset and skills required to navigate the startup ecosystem confidently. The program is expected to serve as a valuable platform for students aspiring to turn innovative ideas into viable ventures."
     // },
     {
+        "id": 20,
+        "title": "Bitcoin Awareness Session",
+        "description": "Educational session on Bitcoin, digital finance, and decentralized money.",
+        "date": "2026-01-28",
+        "venue": "Senate Hall, UVCE",
+        "image": "https://res.cloudinary.com/dsrudxfnx/image/upload/v1769694722/bit_j21xx7.jpg",
+        "section": "past",
+        "registrationLink": "",
+        "fullDescription": "Entrepreneurship Cell UVCE successfully conducted the Bitcoin Awareness Session in collaboration with Bitcoin Bharat by SwapSo, a startup supported by the Society for Innovation & Entrepreneurship (SINE), IIT Bombay.\n\nThe session was led by Krishna Yogi Kolluru, Lead Data Scientist at Scrumconnect Consulting and an investor at VALUETE. Participants explored why Bitcoin is often referred to as 'Digital Gold' and how it addresses the physical, technological, financial, and legal limitations associated with traditional assets like gold.\n\nThe interactive discussion encouraged students to think beyond conventional finance and gain a deeper understanding of decentralized finance. The session equipped participants with valuable insights into the evolving digital currency ecosystem and the future of global financial systems."
+    },
+    {
         "id": 17,
         "title": "BRIDGE Initiative & Sir M. Visvesvaraya Entrepreneur Fellowship Launch",
         "description": "Launch of a campus wide initiative to strengthen student-led innovation and entrepreneurial ventures at UVCE.",
